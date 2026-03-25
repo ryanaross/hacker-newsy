@@ -14,12 +14,15 @@
 		<div class="rounded-md bg-primary px-2 py-1.5">
 			<a href="/" class="font-semibold text-primary-foreground">hn</a>
 		</div>
-		<div class="flex space-x-2 text-xl sm:space-x-4 md:space-x-8">
-			<a href="/news" class={`${$page.url.pathname === "/news" ? "font-semibold" : ""}`}>top</a>
-			<a href="/newest" class={`${$page.url.pathname === "/newest" ? "font-semibold" : ""}`}>new</a>
-			<a href="/ask" class={`${$page.url.pathname === "/ask" ? "font-semibold" : ""}`}>ask</a>
-			<a href="/show" class={`${$page.url.pathname === "/show" ? "font-semibold" : ""}`}>show</a>
-			<a href="/jobs" class={`${$page.url.pathname === "/jobs" ? "font-semibold" : ""}`}>jobs</a>
+		<div class="flex items-center gap-8 text-2xl sm:gap-14 sm:text-3xl md:gap-20">
+			<a
+				href="/news"
+				class="py-1 {$page.url.pathname === '/news' ? 'font-semibold' : ''}"
+			>top</a>
+			<a
+				href="/newest"
+				class="py-1 {$page.url.pathname === '/newest' ? 'font-semibold' : ''}"
+			>new</a>
 		</div>
 		<Settings />
 	</nav>
