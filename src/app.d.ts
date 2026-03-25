@@ -2,8 +2,15 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
+		interface Error {
+			message: string;
+		}
 		// interface Locals {}
+		interface LayoutData {
+			readIds: number[];
+			savedIds: number[];
+			highlightPatterns: { id: number; pattern: string }[];
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

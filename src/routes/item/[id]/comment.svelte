@@ -1,11 +1,13 @@
 <script lang="ts">
-	export let comment: {
+	type CommentNode = {
 		deleted?: boolean;
 		user: string;
 		time_ago: number;
 		content: string;
-		comments: any[];
+		comments: CommentNode[];
 	};
+
+	export let comment: CommentNode;
 
 	export let index = 0;
 

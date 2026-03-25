@@ -3,6 +3,8 @@
 # =============================================================================
 FROM node:20-alpine AS build
 
+RUN apk add --no-cache python3 make g++
+
 WORKDIR /app
 
 COPY package.json yarn.lock ./
@@ -16,13 +18,21 @@ RUN yarn build
 # =============================================================================
 FROM node:20-alpine AS run
 
+RUN apk add --no-cache su-exec python3 make g++
+
 WORKDIR /app
 
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production \
+	&& yarn cache clean \
+	&& apk del python3 make g++
+
 COPY --from=build /app/build ./build
-COPY --from=build /app/package.json ./
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh && mkdir -p /app/data
 
 EXPOSE 3000
 
 ENV NODE_ENV=production
 
-CMD ["node", "build/index.js"]
+ENTRYPOINT ["/entrypoint.sh"]

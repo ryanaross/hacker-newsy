@@ -1,8 +1,17 @@
 <script lang="ts">
+	import { markReadClient } from "$lib/stores/userState";
+	import { onMount } from "svelte";
 	import type { PageData } from "./$types";
 	import Comment from "./comment.svelte";
 
 	export let data: PageData;
+
+	onMount(() => {
+		const id = Number(data?.id);
+		if (Number.isFinite(id) && id > 0) {
+			void markReadClient(id);
+		}
+	});
 </script>
 
 {#if data.domain}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import ArticleRow from "$lib/components/ArticleRow.svelte";
 	import * as Pagination from "$lib/components/ui/pagination";
 	import { infiniteScroll } from "$lib/stores/features";
 	import { items, loadMoreItems, pageIndex } from "$lib/stores/items";
@@ -19,7 +20,7 @@
 			const element = entries[0];
 
 			if (element.isIntersecting) {
-				loadMoreItems(category);
+				loadMoreItems(category ?? "news");
 			}
 		});
 	});
@@ -54,40 +55,7 @@
 </p>
 <hr />
 {#each $items as item, i}
-	<div class="mt-2 flex py-4">
-		<p class="text-xl text-muted-foreground">{(+data.page - 1) * 30 + i + 1}.</p>
-		<div class="ms-4">
-			<a href={`/item/${item.id}`} class="break-words text-xl font-semibold"
-				><h2>{item.title}</h2></a
-			>
-			<div class="flex flex-auto flex-wrap space-x-1">
-				{#if item.domain}
-					<a href={item.url} target="_blank" class="text-sm text-primary">{item.domain}</a>
-					<p class="text-muted-foreground">・</p>
-				{/if}
-				{#if item.points}
-					<p class="text-sm">{item.points} {item.points === 1 ? "point" : "points"}</p>
-					<p class="text-sm text-muted-foreground">・</p>
-				{/if}
-				{#if item.user}
-					<a href={`/user/${item.user}`} class="whitespace-nowrap text-sm font-bold underline"
-						>{item.user}</a
-					>
-					<p class="text-muted-foreground">・</p>
-				{/if}
-				{#if item.time_ago}
-					<p class="text-sm text-muted-foreground">{item.time_ago}</p>
-					<p class="text-muted-foreground">・</p>
-				{/if}
-				{#if item.comments_count >= 0}
-					<p class="text-sm text-muted-foreground">
-						{item.comments_count}
-						{item.comments_count === 1 ? "comment" : "comments"}
-					</p>
-				{/if}
-			</div>
-		</div>
-	</div>
+	<ArticleRow {item} rank={(+data.page - 1) * 30 + i + 1} />
 {/each}
 
 {#if $infiniteScroll}

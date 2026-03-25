@@ -1,0 +1,15 @@
+services:
+  hacker-newsy:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - DEBUG=false
+      - TZ=America/Los_Angeles
+      # Optional: default DB is /app/data/hn.db inside the container
+      # - DB_PATH=/app/data/hn.db
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

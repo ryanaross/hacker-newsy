@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import { theme } from "$lib/stores/features";
 	import Settings from "./settings.svelte";
+
+	$: isDarkish = $theme === "dark" || $theme === "dark-blue";
 </script>
 
 <header
-	class="fixed top-0 m-0 w-full border-b bg-background dark:bg-[rgb(2,4,8)] standalone:pt-[env(safe-area-inset-top)]"
+	class="w-full border-b bg-background standalone:pt-[env(safe-area-inset-top)]"
+	class:bg-[rgb(2,4,8)]={isDarkish}
 >
 	<nav class="flex items-center justify-between px-4 py-6 md:px-6 lg:px-12">
 		<div class="rounded-md bg-primary px-2 py-1.5">
